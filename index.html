@@ -1,0 +1,1631 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Astroverse Network</title>
+    <link rel="icon" type="image/png" href="./assects/astroverse-logo-fig.png" />
+
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+
+    <style>
+      :root {
+        --bg: #000000;
+        --surface: rgba(255, 255, 255, 0.05);
+        --border: rgba(255, 255, 255, 0.08);
+        --text: #fff;
+        --muted: #bcbcbc;
+        --blue: #3678ff;
+        --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Marcellus', sans-serif;
+        background: var(--bg);
+        color: white;
+        overflow-x: hidden;
+      }
+
+      /* background */
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+
+        /* background:
+          radial-gradient(circle at 50% 15%, rgba(48, 80, 255, 0.35), transparent 30%),
+          radial-gradient(circle at 80% 20%, rgba(0, 180, 255, 0.08), transparent 25%), black; */
+
+        z-index: -3;
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+
+        background-size: 4px 4px;
+
+        opacity: 0.03;
+
+        z-index: -2;
+      }
+
+      /* navbar */
+
+      nav {
+        position: fixed;
+
+        left: 50%;
+        transform: translateX(-50%);
+
+        /* top: 20px; */
+        bottom: 20px;
+
+        width: min(1200px, 92%);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 14px 24px;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        backdrop-filter: blur(18px);
+
+        border: 1px solid var(--border);
+
+        border-radius: 18px;
+
+        z-index: 100;
+
+        box-shadow: var(--shadow);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-family: 'Space Grotesk';
+      }
+
+      .logo-circle {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(145deg, #fff, #888);
+      }
+
+      .logo-circle img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 30px;
+
+        list-style: none;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: white;
+        font-size: 14px;
+
+        opacity: 0.85;
+
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        opacity: 1;
+
+        color: #8ec7ff;
+      }
+
+      .actions {
+        display: flex;
+        gap: 14px;
+      }
+
+      .button {
+        padding: 12px 22px;
+
+        border-radius: 999px;
+
+        background: rgba(255, 255, 255, 0.06);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        backdrop-filter: blur(10px);
+
+        cursor: pointer;
+
+        transition: 0.35s;
+
+        color: white;
+      }
+
+      .button:hover {
+        background: rgba(255, 255, 255, 0.12);
+
+        transform: translateY(-2px);
+      }
+
+      /* hero */
+
+      /* .hero {
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 120px 8% 60px;
+
+        position: relative;
+      } */
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* background video */
+      .hero-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* makes video behave like background */
+        z-index: -1; /* keeps video behind everything */
+      }
+
+      /* optional overlay for readability */
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* background: rgba(3, 3, 3, 0.164); dark overlay */
+        z-index: 0;
+      }
+
+      .hero-grid {
+        max-width: 1300px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* left */
+
+      .hero h5 {
+        letter-spacing: 4px;
+
+        color: #90bfff;
+
+        margin-bottom: 20px;
+      }
+
+      .hero h1 {
+        font-family: 'Space Grotesk';
+
+        font-size: 68px;
+
+        line-height: 1.05;
+
+        margin-bottom: 26px;
+      }
+
+      .hero p {
+        font-size: 18px;
+
+        line-height: 1.8;
+
+        color: var(--muted);
+
+        max-width: 560px;
+
+        margin-bottom: 40px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .primary {
+        background: linear-gradient(135deg, #3c7cff, #5ac8ff);
+
+        border: none;
+      }
+
+      .primary:hover {
+        transform: translateY(-4px);
+      }
+
+      .stats {
+        display: flex;
+
+        gap: 26px;
+
+        margin-top: 60px;
+      }
+
+      .stat {
+        background: rgba(255, 255, 255, 0.04);
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+        border: 1px solid rgba(255, 255, 255, 0.06);
+
+        backdrop-filter: blur(14px);
+
+        min-width: 130px;
+      }
+
+      .stat h2 {
+        font-size: 32px;
+
+        font-family: 'Space Grotesk';
+      }
+
+      .stat span {
+        font-size: 14px;
+
+        color: #aaa;
+      }
+
+      /* moon */
+
+      .hero-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+      }
+
+      .glow {
+        position: absolute;
+
+        width: 520px;
+        height: 520px;
+
+        background: radial-gradient(circle, rgba(53, 104, 255, 0.45), transparent 70%);
+
+        filter: blur(60px);
+
+        animation: pulse 5s infinite ease-in-out;
+      }
+
+      .moon {
+        width: 500px;
+        height: 500px;
+
+        border-radius: 50%;
+
+        overflow: hidden;
+
+        animation: float 7s ease-in-out infinite;
+
+        box-shadow: 0 0 80px rgba(70, 110, 255, 0.15);
+      }
+
+      .moon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* scroll */
+
+      .scroll {
+        position: absolute;
+
+        bottom: 35px;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        opacity: 0.6;
+
+        font-size: 14px;
+
+        letter-spacing: 3px;
+      }
+
+      @keyframes float {
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+
+      @keyframes pulse {
+        50% {
+          transform: scale(1.08);
+
+          opacity: 0.7;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+
+          text-align: center;
+        }
+
+        .hero p {
+          margin: auto auto 40px;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+        }
+
+        .stats {
+          justify-content: center;
+
+          flex-wrap: wrap;
+        }
+
+        .hero h1 {
+          font-size: 50px;
+        }
+
+        .moon {
+          width: 340px;
+          height: 340px;
+        }
+
+        .glow {
+          width: 360px;
+          height: 360px;
+        }
+
+        nav ul {
+          display: none;
+        }
+      }
+
+      section {
+        padding: 120px 8%;
+      }
+
+      .section-title {
+        max-width: 900px;
+        margin: auto;
+        text-align: center;
+        margin-bottom: 70px;
+      }
+
+      .section-title span {
+        letter-spacing: 3px;
+        color: #7fb4ff;
+        font-size: 13px;
+      }
+
+      .section-title h2 {
+        font-family: 'Space Grotesk';
+        font-size: 48px;
+        margin-top: 18px;
+      }
+
+      .mission-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .glass-card {
+        padding: 40px;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        border-radius: 24px;
+
+        backdrop-filter: blur(20px);
+
+        transition: 0.4s;
+      }
+
+      .glass-card:hover {
+        transform: translateY(-10px);
+
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .glass-card h3 {
+        font-family: 'Space Grotesk';
+        margin-bottom: 18px;
+      }
+
+      .glass-card p {
+        line-height: 1.9;
+        color: #aaa;
+      }
+
+      .featured {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 60px;
+        /* align-items: center; */
+      }
+
+      .featured-image {
+        overflow: hidden;
+
+        border-radius: 28px;
+      }
+
+      .featured-image img {
+        width: 100%;
+        height: 650px;
+        object-fit: cover;
+
+        transition: 1s;
+      }
+
+      .featured-image:hover img {
+        transform: scale(1.08);
+      }
+
+      .featured-content h2 {
+        font-size: 56px;
+        font-family: 'Space Grotesk';
+        margin: 20px 0;
+      }
+
+      .featured-content p {
+        font-size: 18px;
+
+        color: #aaa;
+
+        line-height: 1.9;
+
+        margin-bottom: 35px;
+      }
+
+      .eyebrow {
+        letter-spacing: 3px;
+        color: #bb7fff;
+      }
+
+      .research-grid {
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 30px;
+      }
+
+      .research-card {
+        position: relative;
+
+        height: 420px;
+
+        border-radius: 24px;
+
+        overflow: hidden;
+
+        cursor: pointer;
+      }
+
+      .research-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        transition: 1s;
+      }
+
+      .research-card:hover img {
+        transform: scale(1.12);
+      }
+
+      .overlay {
+        position: absolute;
+
+        inset: 0;
+
+        padding: 30px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: flex-end;
+
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.88));
+      }
+
+      .overlay h3 {
+        font-size: 30px;
+        font-family: 'Space Grotesk';
+
+        margin-bottom: 10px;
+      }
+
+      .overlay p {
+        color: #ddd;
+        margin-bottom: 18px;
+      }
+
+      .overlay a {
+        color: white;
+        text-decoration: none;
+      }
+
+      @media (max-width: 980px) {
+        .mission-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .featured {
+          grid-template-columns: 1fr;
+        }
+
+        .research-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .featured-content h2 {
+          font-size: 42px;
+        }
+      }
+
+      /* ===================================================== */
+
+      .impact-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+      }
+
+      .impact-card {
+        padding: 45px;
+
+        border-radius: 24px;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        text-align: center;
+
+        backdrop-filter: blur(16px);
+
+        transition: 0.4s;
+      }
+
+      .impact-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .impact-card h3 {
+        font-size: 56px;
+        font-family: 'Space Grotesk';
+
+        background: linear-gradient(135deg, #8bd0ff, #4f83ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .timeline {
+        max-width: 900px;
+        margin: auto;
+        position: relative;
+      }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 120px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .timeline-item {
+        display: flex;
+        gap: 40px;
+        margin-bottom: 70px;
+      }
+
+      .year {
+        width: 120px;
+        font-size: 32px;
+        font-family: 'Space Grotesk';
+        color: #76a8ff;
+      }
+
+      .timeline-content {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 30px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        flex: 1;
+        backdrop-filter: blur(16px);
+      }
+
+      .mission-large {
+        display: grid;
+
+        grid-template-columns: 1.4fr 1fr;
+
+        gap: 40px;
+
+        align-items: center;
+      }
+
+      .mission-large img {
+        width: 100%;
+        height: 600px;
+
+        object-fit: cover;
+
+        border-radius: 28px;
+      }
+
+      .mission-info h2 {
+        font-size: 48px;
+
+        font-family: 'Space Grotesk';
+
+        margin-bottom: 20px;
+      }
+
+      .mission-info p {
+        color: #aaa;
+
+        line-height: 1.8;
+
+        margin-bottom: 30px;
+      }
+
+      .partner-grid {
+        display: grid;
+
+        grid-template-columns: repeat(6, 1fr);
+
+        gap: 25px;
+      }
+
+      .partner-grid div {
+        padding: 30px;
+
+        border-radius: 18px;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        text-align: center;
+
+        font-size: 22px;
+
+        font-family: 'Space Grotesk';
+
+        transition: 0.4s;
+      }
+
+      .partner-grid div:hover {
+        background: rgba(255, 255, 255, 0.08);
+
+        transform: translateY(-8px);
+      }
+
+      .cta-box {
+        padding: 90px;
+
+        border-radius: 40px;
+
+        background: linear-gradient(145deg, rgba(35, 77, 255, 0.18), rgba(255, 255, 255, 0.04));
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        text-align: center;
+
+        backdrop-filter: blur(25px);
+      }
+
+      .cta-box h2 {
+        font-size: 56px;
+
+        font-family: 'Space Grotesk';
+
+        margin-bottom: 20px;
+      }
+
+      .cta-box p {
+        max-width: 700px;
+
+        margin: auto auto 35px;
+
+        line-height: 1.8;
+
+        color: #bbb;
+      }
+
+      @media (max-width: 980px) {
+        .impact-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .partner-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .mission-large {
+          grid-template-columns: 1fr;
+        }
+
+        .timeline::before {
+          display: none;
+        }
+
+        .timeline-item {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .impact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .community-grid {
+        display: grid;
+
+        grid-template-columns: 1.4fr 1fr;
+
+        gap: 60px;
+
+        align-items: center;
+      }
+
+      .world img {
+        width: 100%;
+
+        opacity: 0.8;
+
+        filter: drop-shadow(0 0 80px rgba(40, 120, 255, 0.3));
+      }
+
+      .academy-grid {
+        display: grid;
+
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 25px;
+      }
+
+      .academy-card {
+        padding: 45px;
+
+        border-radius: 24px;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        transition: 0.4s;
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .academy-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .newsletter {
+        padding-bottom: 120px;
+      }
+
+      .newsletter-box {
+        max-width: 900px;
+
+        margin: auto;
+
+        padding: 70px;
+
+        text-align: center;
+
+        border-radius: 35px;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        backdrop-filter: blur(25px);
+      }
+
+      .newsletter form {
+        margin-top: 40px;
+
+        display: flex;
+
+        gap: 20px;
+      }
+
+      .newsletter input {
+        flex: 1;
+
+        padding: 20px;
+
+        background: #111;
+
+        color: white;
+
+        border: none;
+
+        border-radius: 16px;
+      }
+
+      .newsletter button {
+        padding: 20px 34px;
+
+        border: none;
+
+        border-radius: 16px;
+
+        background: linear-gradient(135deg, #387fff, #62d7ff);
+
+        color: white;
+
+        cursor: pointer;
+      }
+
+      footer {
+        background: #000;
+        color: #fff;
+        padding: 60px 8%;
+        font-family: 'Alata', sans-serif;
+      }
+
+      /* 1️⃣ Footer Grid */
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 40px;
+      }
+
+      .footer-grid h4 {
+        margin-bottom: 14px;
+        font-weight: 600;
+      }
+
+      .footer-grid a {
+        display: block;
+        color: #777777;
+        text-decoration: none;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+      }
+
+      .footer-grid a:hover {
+        color: #fff;
+      }
+
+      /* 2️⃣ Footer Container */
+      .footer-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 60px;
+        flex-wrap: wrap;
+      }
+
+      .footer-left img {
+        width: 800px;
+        height: auto;
+      }
+
+      .footer-right {
+        max-width: 600px;
+      }
+
+      .footer-right h2 {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+
+      .footer-right p {
+        font-family: 'Marcellus', serif;
+        color: #777777;
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      .footer-subbrands {
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        color: #888;
+      }
+
+      footer .copyright {
+        font-family: 'Marcellus', serif;
+        margin-top: 40px;
+        font-size: 14px;
+        color: #777;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="logo">
+        <div class="logo-circle">
+          <img src="./assects/astroverse-logo-fig.png" alt="Astroverse Logo" width="40" height="40" />
+        </div>
+        Astroverse Network
+      </div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">Space</a></li>
+        <li><a href="#">Technology</a></li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+
+      <div class="actions">
+        <button class="button">Donate</button>
+      </div>
+    </nav>
+    <section class="hero">
+      <video autoplay muted loop playsinline class="hero-video">
+        <source src="./assects/Mars_Rotation_Web_HB_d96299f9de.mp4" type="video/mp4" />
+        <!-- Optional fallback -->
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="hero-grid">
+        <div>
+          <h5>EXPLORE</h5>
+          <h1>
+            Boundless Knowledge.
+            <br />
+            Infinite Exploration.
+          </h1>
+          <p>
+            Discover the latest advancements in astronomy, space technology and scientific research through Astroverse
+            Network's global nonprofit initiatives.
+          </p>
+
+          <div class="hero-buttons">
+            <button class="button primary">Explore Research</button>
+
+            <button class="button">Join Community</button>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <h2>140+</h2>
+
+              <span>Research Projects</span>
+            </div>
+
+            <div class="stat">
+              <h2>42</h2>
+
+              <span>Countries</span>
+            </div>
+
+            <div class="stat">
+              <h2>300K+</h2>
+
+              <span>Community</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll">SCROLL</div>
+    </section>
+    <!-- ========================= -->
+    <!-- Mission -->
+    <!-- ========================= -->
+
+    <section class="mission">
+      <div class="section-title">
+        <span>WHO WE ARE</span>
+        <h2>Advancing Humanity Through Space Research</h2>
+      </div>
+
+      <div class="mission-grid">
+        <div class="glass-card">
+          <h3>Global Research Network</h3>
+
+          <p>
+            Astroverse connects universities, astronomers, engineers and students across the world to accelerate
+            scientific discovery.
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <h3>Open Education</h3>
+
+          <p>
+            Making advanced astronomy, astrophysics and engineering accessible for everyone through free educational
+            initiatives.
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <h3>Future Missions</h3>
+
+          <p>From lunar exploration to deep space observatories, we empower ambitious nonprofit scientific missions.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- Featured -->
+    <!-- ========================= -->
+
+    <section class="featured">
+      <div class="featured-image">
+        <img src="./assects/Space-design.webp" />
+      </div>
+
+      <div class="featured-content">
+        <span class="eyebrow">FEATURED RESEARCH</span>
+
+        <h2>Exoplanets Beyond Our Solar System</h2>
+
+        <p>
+          Explore newly discovered planetary systems, their atmospheres, potential habitability, and cutting-edge
+          telescope observations.
+        </p>
+
+        <div class="hero-buttons">
+          <button class="button primary">Read Research</button>
+
+          <button class="button">View Archive</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- Research Grid -->
+    <!-- ========================= -->
+
+    <section class="research">
+      <div class="section-title">
+        <span>LATEST STORIES</span>
+
+        <h2>Research & Discoveries</h2>
+      </div>
+
+      <div class="research-grid">
+        <div class="research-card">
+          <img src="./assects/space-week.png" />
+
+          <div class="overlay">
+            <h3>Space Week</h3>
+
+            <p>Weekly discoveries and space events.</p>
+
+            <a href="#">Explore →</a>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <img src="./assects/deep-space.png" />
+
+          <div class="overlay">
+            <h3>Deep Space</h3>
+
+            <p>Beyond the observable universe.</p>
+
+            <a href="#">Explore →</a>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <img src="./assects/micro-gravity.png" />
+
+          <div class="overlay">
+            <h3>Micro Gravity</h3>
+
+            <p>Life in orbital laboratories.</p>
+
+            <a href="#">Explore →</a>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <img src="./assects/earth-science.png" />
+
+          <div class="overlay">
+            <h3>Earth Science</h3>
+
+            <p>Observing climate from orbit.</p>
+
+            <a href="#">Explore →</a>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <img src="./assects/elemental.png" />
+
+          <div class="overlay">
+            <h3>Elemental</h3>
+
+            <p>The chemistry of the cosmos.</p>
+
+            <a href="#">Explore →</a>
+          </div>
+        </div>
+
+        <div class="research-card">
+          <img src="./assects/space-report.png" />
+
+          <div class="overlay">
+            <h3>Space Report</h3>
+
+            <p>Monthly scientific publication.</p>
+
+            <a href="#">Explore →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===================================================== -->
+    <!-- RESEARCH IMPACT -->
+    <!-- ===================================================== -->
+
+    <section class="impact">
+      <div class="section-title">
+        <span>OUR IMPACT</span>
+        <h2>Science Without Borders</h2>
+      </div>
+
+      <div class="impact-grid">
+        <div class="impact-card">
+          <h3 class="counter" data-count="148">0</h3>
+          <p>Research Projects</p>
+        </div>
+
+        <div class="impact-card">
+          <h3 class="counter" data-count="72">0</h3>
+          <p>Partner Institutions</p>
+        </div>
+
+        <div class="impact-card">
+          <h3 class="counter" data-count="42">0</h3>
+          <p>Countries</p>
+        </div>
+
+        <div class="impact-card">
+          <h3 class="counter" data-count="325">0</h3>
+          <p>Published Papers</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- TIMELINE -->
+    <!-- ===================================================== -->
+
+    <section class="timeline-section">
+      <div class="section-title">
+        <span>MISSION ROADMAP</span>
+
+        <h2>Journey Into The Future</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="year">2023</div>
+
+          <div class="timeline-content">
+            <h3>Lunar Observation Program</h3>
+
+            <p>Building educational observatories for students around the world.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">2024</div>
+
+          <div class="timeline-content">
+            <h3>Exoplanet Initiative</h3>
+
+            <p>Searching for potentially habitable worlds.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">2025</div>
+
+          <div class="timeline-content">
+            <h3>Deep Space AI</h3>
+
+            <p>Artificial intelligence for astronomical discovery.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">2026</div>
+
+          <div class="timeline-content">
+            <h3>Global Telescope Network</h3>
+
+            <p>Connecting observatories across continents.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- FEATURED MISSIONS -->
+    <!-- ===================================================== -->
+
+    <section class="missions">
+      <div class="section-title">
+        <span>ACTIVE MISSIONS</span>
+
+        <h2>Current Scientific Programs</h2>
+      </div>
+
+      <div class="mission-slider">
+        <div class="mission-large">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80" />
+
+          <div class="mission-info">
+            <h2>Moon Base Alpha</h2>
+
+            <p>Developing next-generation lunar research technologies for future exploration.</p>
+
+            <button class="button primary">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- PARTNERS -->
+    <!-- ===================================================== -->
+
+    <section class="partners">
+      <div class="section-title">
+        <span>GLOBAL NETWORK</span>
+
+        <h2>Trusted By Leading Organizations</h2>
+      </div>
+
+      <div class="partner-grid">
+        <div>NASA</div>
+
+        <div>ESA</div>
+
+        <div>ISRO</div>
+
+        <div>JAXA</div>
+
+        <div>CSA</div>
+
+        <div>SpaceX</div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- CTA -->
+    <!-- ===================================================== -->
+
+    <section class="cta">
+      <div class="cta-box">
+        <h2>Help Shape The Future Of Space Exploration</h2>
+
+        <p>Support open science, research, education, and global collaboration.</p>
+
+        <div class="hero-buttons">
+          <button class="button primary">Become A Member</button>
+
+          <button class="button">Donate Today</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="community">
+      <div class="section-title">
+        <span>GLOBAL COMMUNITY</span>
+
+        <h2>Connecting Scientists Across The Planet</h2>
+      </div>
+
+      <div class="community-grid">
+        <div class="world">
+          <img src="https://learnspacescience.com/assets/program-club-B4s2ifkn.jpg" />
+        </div>
+
+        <div class="community-info">
+          <div class="glass-card">
+            <h3>320,000+</h3>
+
+            <p>Members worldwide contributing to astronomy, space engineering and education.</p>
+          </div>
+          <br />
+          <div class="glass-card">
+            <h3>42 Countries</h3>
+
+            <p>Universities, research institutes, and nonprofit organizations.</p>
+          </div>
+          <br />
+          <div class="glass-card">
+            <h3>Open Collaboration</h3>
+
+            <p>Every project is open, transparent, and built for future generations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="academy">
+      <div class="section-title">
+        <span>LEARN</span>
+
+        <h2>Astroverse Academy</h2>
+      </div>
+
+      <div class="academy-grid">
+        <div class="academy-card">
+          <h3>Space Science</h3>
+
+          <p>Free astronomy courses.</p>
+        </div>
+
+        <div class="academy-card">
+          <h3>Engineering</h3>
+
+          <p>Spacecraft systems.</p>
+        </div>
+
+        <div class="academy-card">
+          <h3>Research Papers</h3>
+
+          <p>Peer reviewed publications.</p>
+        </div>
+
+        <div class="academy-card">
+          <h3>Workshops</h3>
+
+          <p>Global educational events.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="newsletter">
+      <div class="newsletter-box">
+        <h2>Stay Connected</h2>
+
+        <p>Monthly discoveries. Research updates. Mission announcements.</p>
+
+        <form>
+          <input type="email" placeholder="Email Address" />
+
+          <button>Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <!-- 1Footer Grid (top section) -->
+      <div class="footer-grid">
+        <div>
+          <h4>Our Research</h4>
+          <a href="#">Astroverse Academy</a>
+          <a href="#">AstroColab</a>
+          <a href="#">ASRD</a>
+          <a href="#">Planetary Defence</a>
+          <a href="#">DSCP</a>
+          <a href="#">Q Plus Defence</a>
+          <a href="#">Quantum Mind</a>
+        </div>
+
+        <div>
+          <h4>About ASRD</h4>
+          <a href="#">Exo-Planets insights</a>
+          <a href="#">Space Week Report</a>
+          <a href="#">Deep Space Research</a>
+          <a href="#">Earth Science And Technology</a>
+          <a href="#">Micro Gravity Research</a>
+          <a href="#">The Elemental Research</a>
+          <a href="#">Space Report</a>
+        </div>
+
+        <div>
+          <h4>About Astroverse Network</h4>
+          <a href="#">About</a>
+          <a href="#">Asrd</a>
+          <br />
+          <h4>Newsletters</h4>
+          <a href="#">Astroweekly</a>
+          <br />
+          <h4>மேலும் அறிய</h4>
+          <a href="#">தமிழ்</a>
+        </div>
+
+        <div>
+          <h4>Key Links</h4>
+          <a href="#">Space</a>
+          <a href="#">New Informations</a>
+          <a href="#">Scientific</a>
+          <a href="#">Technology</a>
+          <a href="#">Updates</a>
+        </div>
+
+        <div>
+          <h4>Legal & Safety</h4>
+          <a href="#">Terms of use</a>
+          <a href="#">Privacy policy</a>
+        </div>
+      </div>
+
+      <!-- 2️⃣ Footer Container (bottom section) -->
+      <div class="footer-container">
+        <div class="footer-left">
+          <img src="./assects/overall-logo.png" alt="Astroverse Network Logo" />
+        </div>
+
+        <div class="footer-right">
+          <h2>Astroverse Network</h2>
+          <p>
+            The Astroverse Networks is a global non-profit organization dedicated to making space exploration and STEM
+            education accessible to everyone. Our mission is to connect students, professionals, and enthusiasts with
+            the latest advancements in space research, innovation, and technology. We aim to foster collaboration among
+            individuals and institutions, including the United Nations, space agencies, industry leaders, and academia,
+            to drive progress in space science and deep-space exploration.
+          </p>
+          <div class="footer-subbrands">
+            <span class="icon-wrapper"><img src="./assects/linkedin_white_28dp.png" width="30" /></span>
+            <span class="icon-wrapper"><img src="./assects/github_white_28dp.png" width="30" /></span>
+            <span class="icon-wrapper"><img src="./assects/instagram_white_28dp.png" width="30" /></span>
+            <span class="icon-wrapper"><img src="./assects/facebook_white_28dp.png" width="30" /></span>
+            <span class="icon-wrapper"><img src="./assects/x-logo.png" width="30" /></span>
+            <span class="icon-wrapper"><img src="./assects/telegram.png" width="30" /></span>
+            <span class="icon-wrapper"><img src="./assects/whatsapp--v2.png" width="25" /></span>
+          </div>
+          <div class="copyright">Copyright &copy; 2021-2026 Astroverse Network - All Rights Reserved.</div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // mouse parallax
+
+      const moon = document.querySelector('.moon')
+
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 18
+        const y = (e.clientY / window.innerHeight - 0.5) * 18
+
+        moon.style.transform = `translate(${x}px,${y}px)`
+      })
+
+      // Animated Counters
+
+      const counters = document.querySelectorAll('.counter')
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target
+            const target = +el.dataset.count
+
+            let value = 0
+
+            const step = target / 80
+
+            const update = () => {
+              value += step
+
+              if (value < target) {
+                el.innerText = Math.floor(value)
+
+                requestAnimationFrame(update)
+              } else {
+                el.innerText = target + '+'
+              }
+            }
+
+            update()
+
+            observer.unobserve(el)
+          }
+        })
+      })
+
+      counters.forEach((c) => observer.observe(c))
+
+      const reveals = document.querySelectorAll('section')
+
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.animate(
+                [
+                  {
+                    opacity: 0,
+
+                    transform: 'translateY(60px)',
+                  },
+
+                  {
+                    opacity: 1,
+
+                    transform: 'translateY(0)',
+                  },
+                ],
+                {
+                  duration: 900,
+
+                  fill: 'forwards',
+
+                  easing: 'ease',
+                },
+              )
+            }
+          })
+        },
+        {
+          threshold: 0.15,
+        },
+      )
+
+      reveals.forEach((s) => {
+        s.style.opacity = 0
+
+        revealObserver.observe(s)
+      })
+    </script>
+  </body>
+</html>
